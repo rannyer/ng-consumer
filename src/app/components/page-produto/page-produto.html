@@ -1,0 +1,11 @@
+
+<h1>PERFUMES 🧴</h1>
+
+<div class="lista">
+    @for (item of perfumes; track $index) {
+        <app-card [dados]="item"/>
+    }
+</div>
+
+
+<app-card  *ngfor="let item of perfumes" [dados]="item"/>
