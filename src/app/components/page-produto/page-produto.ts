@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Card } from "../card/card";
 import { Perfume } from '../../models/perfume.model';
+import { PerfumeService } from '../../services/perfume.service';
 
 @Component({
   selector: 'app-page-produto',
@@ -8,47 +9,15 @@ import { Perfume } from '../../models/perfume.model';
   templateUrl: './page-produto.html',
   styleUrl: './page-produto.css'
 })
-export class PageProduto {
- perfumes: Perfume[] = [
-    {
-      id: 1,
-      nome: 'Acqua Di Gio',
-      marca: 'Giorgio Armani',
-      nacionalidade: 'Itália',
-      img: 'https://example.com/acqua_di_gio.jpg',
-      preco: 350.00
-    },
-    {
-      id: 2,
-      nome: 'Light Blue',
-      marca: 'Dolce & Gabbana',
-      nacionalidade: 'Itália',
-      img: 'https://example.com/light_blue.jpg',
-      preco: 300.00
-    },
-    {
-      id: 3,
-      nome: 'CK One',
-      marca: 'Calvin Klein',
-      nacionalidade: 'Estados Unidos',
-      img: 'https://example.com/ck_one.jpg',
-      preco: 250.00
-    },
-    {
-      id: 4,
-      nome: 'La Vie Est Belle',
-      marca: 'Lancôme',
-      nacionalidade: 'França',
-      img: 'https://example.com/la_vie_est_belle.jpg',
-      preco: 420.00
-    },
-    {
-      id: 5,
-      nome: 'Chanel No. 5',
-      marca: 'Chanel',
-      nacionalidade: 'França',
-      img: 'https://example.com/chanel_no5.jpg',
-      preco: 550.00
-    }
-  ];
+export class PageProduto implements OnInit {
+ 
+ perfumes: Perfume[] = [];
+
+  constructor(private perfumeService: PerfumeService){}
+  
+  ngOnInit(): void {
+    this.perfumeService.getAll().subscribe({
+      next: (body) => this.perfumes = body
+    })
+ }
 }
